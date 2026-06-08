@@ -237,20 +237,20 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 max-w-[1600px] mx-auto pb-8">
       {/* Header */}
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">
+          <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
             CBBO Analytics Overview
           </h1>
-          <p className="text-sm text-gray-500 mt-0.5">
-            Consolidated view across {stats.totalFpos ?? 0} FPOs.
+          <p className="text-base text-gray-500 mt-1">
+            Consolidated view across <span className="font-medium text-gray-700">{stats.totalFpos ?? 0}</span> FPOs.
           </p>
         </div>
         <button
           onClick={handleDownload}
-          className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-emerald-700 rounded-xl hover:bg-emerald-800 active:scale-95 transition-all shadow-sm"
+          className="flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-emerald-600 rounded-xl hover:bg-emerald-700 active:scale-95 transition-all shadow-sm hover:shadow"
         >
           <Download className="w-4 h-4" />
           Download Report
@@ -258,33 +258,31 @@ export default function Dashboard() {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {KPI_CARDS.map((s, i) => {
           const Icon = s.icon;
           return (
             <div
               key={i}
-              className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+              className="bg-white p-6 rounded-2xl border border-gray-100/80 shadow-sm hover:shadow-md hover:border-gray-200 transition-all duration-300"
             >
-              <div className="flex items-start justify-between">
-                <div className="flex items-start gap-3">
-                  <div className={`${s.iconBg} p-2.5 rounded-xl`}>
-                    <Icon className={`w-5 h-5 ${s.iconColor}`} />
-                  </div>
-                  <div>
-                    <p className="text-xs font-medium text-gray-500">
-                      {s.title}
-                    </p>
-                    <p className="text-2xl font-bold text-gray-800 leading-tight mt-0.5">
-                      {s.value}
-                    </p>
-                  </div>
+              <div className="flex items-center justify-between mb-4">
+                <div className={`flex items-center justify-center w-12 h-12 rounded-full ${s.iconBg}`}>
+                  <Icon className={`w-6 h-6 ${s.iconColor}`} />
                 </div>
                 <Sparkline color={s.sparkColor} />
               </div>
-              <p className="text-xs mt-3 font-medium text-gray-400">
-                {s.trend}
-              </p>
+              <div>
+                <p className="text-sm font-medium text-gray-500 mb-1">
+                  {s.title}
+                </p>
+                <div className="flex items-baseline gap-2">
+                  <h4 className="text-3xl font-bold text-gray-900">{s.value}</h4>
+                </div>
+                <p className="text-sm mt-2 text-gray-500 font-medium">
+                  {s.trend}
+                </p>
+              </div>
             </div>
           );
         })}
@@ -293,16 +291,16 @@ export default function Dashboard() {
       {/* Charts row 1 */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* Sales vs Procurement per FPO */}
-        <div className="p-6 bg-white border border-gray-100 shadow-sm rounded-2xl">
-          <div className="flex items-start gap-3 mb-6">
-            <div className="p-2 rounded-xl bg-emerald-50">
-              <TrendingUp className="w-5 h-5 text-emerald-600" />
+        <div className="p-6 bg-white border border-gray-100/80 shadow-sm rounded-2xl">
+          <div className="flex items-center gap-4 mb-8">
+            <div className="p-3 rounded-full bg-emerald-50">
+              <TrendingUp className="w-6 h-6 text-emerald-600" />
             </div>
             <div>
-              <h3 className="text-base font-semibold text-gray-800">
+              <h3 className="text-lg font-bold text-gray-900">
                 Sales vs Procurement per FPO
               </h3>
-              <p className="text-xs text-gray-400 mt-0.5">
+              <p className="text-sm text-gray-500 mt-1">
                 Revenue breakdown across all tenants
               </p>
             </div>
@@ -361,16 +359,16 @@ export default function Dashboard() {
         </div>
 
         {/* Farmer Growth Monthwise */}
-        <div className="p-6 bg-white border border-gray-100 shadow-sm rounded-2xl">
-          <div className="flex items-start gap-3 mb-6">
-            <div className="p-2 rounded-xl bg-blue-50">
-              <Users className="w-5 h-5 text-blue-600" />
+        <div className="p-6 bg-white border border-gray-100/80 shadow-sm rounded-2xl">
+          <div className="flex items-center gap-4 mb-8">
+            <div className="p-3 rounded-full bg-blue-50">
+              <Users className="w-6 h-6 text-blue-600" />
             </div>
             <div>
-              <h3 className="text-base font-semibold text-gray-800">
+              <h3 className="text-lg font-bold text-gray-900">
                 Farmer Growth (Monthwise)
               </h3>
-              <p className="text-xs text-gray-400 mt-0.5">
+              <p className="text-sm text-gray-500 mt-1">
                 Monthly farmer enrollment across all FPOs
               </p>
             </div>
@@ -431,24 +429,24 @@ export default function Dashboard() {
       </div>
 
       {/* FPO Revenue Table */}
-      <div className="bg-white border border-gray-100 shadow-sm rounded-2xl overflow-hidden">
-        <div className="p-6 border-b border-gray-100 bg-gray-50 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="bg-white border border-gray-100/80 shadow-sm rounded-2xl overflow-hidden mt-2">
+        <div className="p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-gray-100/60">
           <div>
-            <h3 className="font-bold text-gray-800 text-lg">
+            <h3 className="text-lg font-bold text-gray-900">
               FPO Revenue Overview
             </h3>
-            <p className="text-xs text-gray-400 mt-0.5">
+            <p className="text-sm text-gray-500 mt-1">
               {fpos.length} FPOs · Sales, Procurement & Net Revenue
             </p>
           </div>
-          <div className="relative">
-            <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+          <div className="relative group">
+            <Search className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2 group-focus-within:text-emerald-500 transition-colors" />
             <input
               type="text"
               placeholder="Search FPO or code..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-9 pr-4 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 w-52 bg-white"
+              className="pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 w-full sm:w-64 bg-gray-50/50 hover:bg-white transition-all"
             />
           </div>
         </div>
@@ -456,44 +454,44 @@ export default function Dashboard() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-gray-100/50 text-xs font-bold text-gray-400 uppercase tracking-wider border-b border-gray-100">
+              <tr className="bg-gray-50/50 text-xs font-semibold text-gray-500 uppercase tracking-wider border-b border-gray-100">
                 <th className="px-6 py-4">FPO Name</th>
                 <th className="px-6 py-4">Code</th>
                 <th
-                  className="px-6 py-4 cursor-pointer hover:bg-gray-200/50 select-none"
+                  className="px-6 py-4 cursor-pointer hover:text-gray-700 transition-colors select-none"
                   onClick={() => toggleSort("farmers")}
                 >
-                  <div className="flex items-center gap-1">
-                    Farmers <ArrowUpDown className="w-3.5 h-3.5" />
+                  <div className="flex items-center gap-1.5">
+                    Farmers <ArrowUpDown className="w-4 h-4" />
                   </div>
                 </th>
                 <th
-                  className="px-6 py-4 cursor-pointer hover:bg-gray-200/50 select-none"
+                  className="px-6 py-4 cursor-pointer hover:text-gray-700 transition-colors select-none"
                   onClick={() => toggleSort("salesRevenue")}
                 >
-                  <div className="flex items-center gap-1">
-                    Sales Revenue <ArrowUpDown className="w-3.5 h-3.5" />
+                  <div className="flex items-center gap-1.5">
+                    Sales Revenue <ArrowUpDown className="w-4 h-4" />
                   </div>
                 </th>
                 <th
-                  className="px-6 py-4 cursor-pointer hover:bg-gray-200/50 select-none"
+                  className="px-6 py-4 cursor-pointer hover:text-gray-700 transition-colors select-none"
                   onClick={() => toggleSort("procurementExpense")}
                 >
-                  <div className="flex items-center gap-1">
-                    Procurement <ArrowUpDown className="w-3.5 h-3.5" />
+                  <div className="flex items-center gap-1.5">
+                    Procurement <ArrowUpDown className="w-4 h-4" />
                   </div>
                 </th>
                 <th
-                  className="px-6 py-4 cursor-pointer hover:bg-gray-200/50 select-none"
+                  className="px-6 py-4 cursor-pointer hover:text-gray-700 transition-colors select-none"
                   onClick={() => toggleSort("netRevenue")}
                 >
-                  <div className="flex items-center gap-1">
-                    Net Revenue <ArrowUpDown className="w-3.5 h-3.5" />
+                  <div className="flex items-center gap-1.5">
+                    Net Revenue <ArrowUpDown className="w-4 h-4" />
                   </div>
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100 text-sm">
+            <tbody className="divide-y divide-gray-50 text-sm">
               {paginated.length === 0 ? (
                 <tr>
                   <td
@@ -505,22 +503,22 @@ export default function Dashboard() {
                 </tr>
               ) : (
                 paginated.map((fpo) => (
-                  <tr key={fpo.id} className="hover:bg-gray-50/50 transition">
-                    <td className="px-6 py-4 font-semibold text-gray-800">
+                  <tr key={fpo.id} className="hover:bg-gray-50/80 transition-colors">
+                    <td className="px-6 py-4 font-semibold text-gray-900">
                       {fpo.name}
                     </td>
                     <td className="px-6 py-4">
-                      <span className="px-2 py-1 bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-mono rounded-lg">
+                      <span className="px-2.5 py-1 bg-emerald-50 text-emerald-700 text-xs font-mono rounded-md font-medium">
                         {fpo.code}
                       </span>
                     </td>
                     <td className="px-6 py-4 font-medium text-gray-700">
                       {fpo.farmers}
                     </td>
-                    <td className="px-6 py-4 font-semibold text-green-600">
+                    <td className="px-6 py-4 font-semibold text-emerald-600">
                       {fmtINR(fpo.salesRevenue)}
                     </td>
-                    <td className="px-6 py-4 font-semibold text-orange-600">
+                    <td className="px-6 py-4 font-semibold text-amber-600">
                       {fmtINR(fpo.procurementExpense)}
                     </td>
                     <td
@@ -537,16 +535,16 @@ export default function Dashboard() {
             </tbody>
             {/* Totals row */}
             <tfoot>
-              <tr className="bg-gray-50 border-t-2 border-gray-200 text-sm font-bold">
-                <td className="px-6 py-4 text-gray-700">Total</td>
+              <tr className="bg-gray-50/80 border-t-2 border-gray-100 text-sm font-bold">
+                <td className="px-6 py-4 text-gray-900">Total</td>
                 <td className="px-6 py-4" />
-                <td className="px-6 py-4 text-gray-700">
+                <td className="px-6 py-4 text-gray-900">
                   {(stats.totalFarmers ?? 0).toLocaleString("en-IN")}
                 </td>
-                <td className="px-6 py-4 text-green-700">
+                <td className="px-6 py-4 text-emerald-700">
                   {fmtINR(stats.totalSalesRevenue ?? 0)}
                 </td>
-                <td className="px-6 py-4 text-orange-700">
+                <td className="px-6 py-4 text-amber-700">
                   {fmtINR(stats.totalProcurementExpense ?? 0)}
                 </td>
                 <td
@@ -564,24 +562,22 @@ export default function Dashboard() {
         </div>
 
         {totalPages > 1 && (
-          <div className="p-4 bg-gray-50 border-t border-gray-100 flex items-center justify-between">
-            <span className="text-xs text-gray-400">
-              Showing {(currentPage - 1) * PER_PAGE + 1}–
-              {Math.min(currentPage * PER_PAGE, filtered.length)} of{" "}
-              {filtered.length} FPOs
+          <div className="p-5 bg-white border-t border-gray-100/60 flex items-center justify-between">
+            <span className="text-sm text-gray-500">
+              Showing <span className="font-medium text-gray-900">{(currentPage - 1) * PER_PAGE + 1}</span> to <span className="font-medium text-gray-900">{Math.min(currentPage * PER_PAGE, filtered.length)}</span> of <span className="font-medium text-gray-900">{filtered.length}</span> FPOs
             </span>
             <div className="flex gap-2">
               <button
                 disabled={currentPage === 1}
                 onClick={() => setCurrentPage((p) => p - 1)}
-                className="px-3 py-1.5 border border-gray-200 rounded-lg text-xs font-semibold bg-white hover:bg-gray-50 disabled:opacity-40 disabled:pointer-events-none transition"
+                className="px-4 py-2 border border-gray-200 rounded-xl text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50 hover:text-gray-900 disabled:opacity-40 disabled:pointer-events-none transition-all shadow-sm"
               >
                 Previous
               </button>
               <button
                 disabled={currentPage === totalPages}
                 onClick={() => setCurrentPage((p) => p + 1)}
-                className="px-3 py-1.5 border border-gray-200 rounded-lg text-xs font-semibold bg-white hover:bg-gray-50 disabled:opacity-40 disabled:pointer-events-none transition"
+                className="px-4 py-2 border border-gray-200 rounded-xl text-sm font-semibold text-gray-700 bg-white hover:bg-gray-50 hover:text-gray-900 disabled:opacity-40 disabled:pointer-events-none transition-all shadow-sm"
               >
                 Next
               </button>
